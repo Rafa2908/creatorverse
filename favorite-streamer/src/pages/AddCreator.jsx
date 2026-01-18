@@ -1,13 +1,15 @@
+import "../App.css";
 import { useState, useContext } from "react";
 import { supabase } from "../client";
-import "../App.css";
 import { CreatorContext } from "../context/CreatorContext";
+import { Link } from "react-router-dom";
 
 const AddCreator = () => {
   const creatorContext = useContext(CreatorContext);
 
   // eslint-disable-next-line no-unused-vars
-  const { creators, setCreators, setModal, setMessage } = creatorContext;
+  const { setCreator, creators, setCreators, setMessage, navigate } =
+    creatorContext;
 
   const [creatorData, setCreatorData] = useState({
     name: "",
@@ -31,14 +33,14 @@ const AddCreator = () => {
   const updateSocials = (platform, value) => {
     setCreatorData((prev) => {
       const existing = prev.socials.find(
-        (social) => social.platform == platform
+        (social) => social.platform == platform,
       );
 
       if (existing) {
         return {
           ...prev,
           socials: prev.socials.map((social) =>
-            social.platform == platform ? { ...social, url: value } : social
+            social.platform == platform ? { ...social, url: value } : social,
           ),
         };
       }
@@ -61,9 +63,13 @@ const AddCreator = () => {
 
     if (error) console.log(error);
 
+    const creatorName = data.name.replaceAll(" ", "");
+
     try {
       setMessage("Creator added.");
       setCreators((prev) => [...prev, data]);
+      setCreator(data);
+      navigate(`/${data.id}/${creatorName}`);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +80,6 @@ const AddCreator = () => {
       description: "",
       socials: [{ platform: "", url: "" }],
     });
-    setModal({ type: null });
   };
 
   return (
@@ -133,7 +138,7 @@ const AddCreator = () => {
               onChange={(e) => updateSocials("youtube", e.target.value)}
               value={
                 creatorData.socials.find(
-                  (social) => social.platform === "youtube"
+                  (social) => social.platform === "youtube",
                 )?.url || ""
               }
             />
@@ -150,7 +155,7 @@ const AddCreator = () => {
               onChange={(e) => updateSocials("twitter", e.target.value)}
               value={
                 creatorData.socials.find(
-                  (social) => social.platform === "twitter"
+                  (social) => social.platform === "twitter",
                 )?.url || ""
               }
             />
@@ -167,7 +172,7 @@ const AddCreator = () => {
               onChange={(e) => updateSocials("instagram", e.target.value)}
               value={
                 creatorData.socials.find(
-                  (social) => social.platform === "instagram"
+                  (social) => social.platform === "instagram",
                 )?.url || ""
               }
             />
@@ -181,13 +186,13 @@ const AddCreator = () => {
           >
             Add Creator
           </button>
-          <button
+          <Link
             type="button"
             className="creator--form--button--secondary"
-            onClick={() => setModal({ type: null })}
+            to={"/"}
           >
             Cancel
-          </button>
+          </Link>
         </div>
       </form>
     </div>

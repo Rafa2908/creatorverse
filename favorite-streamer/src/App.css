@@ -91,7 +91,10 @@ body {
 }
 
 .home--buttons:hover {
-  box-shadow: 0 0 5px #1f51ff, 0 0 20px #1f51ff, 0 0 60px #1f51ff,
+  box-shadow:
+    0 0 5px #1f51ff,
+    0 0 20px #1f51ff,
+    0 0 60px #1f51ff,
     0 0 150px #1f51ff;
   cursor: pointer;
   -o-transform: scale(1.05);
@@ -242,7 +245,7 @@ body {
 .add--creator--form {
   width: 100%;
   max-width: 600px;
-  padding: 40px;
+  padding: 25px 40px;
   background: rgba(129, 126, 126, 0.11);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -289,7 +292,10 @@ label {
 .creator--form--content input:focus {
   outline: none;
   border: 1px solid #1f51ff;
-  box-shadow: 0 0 5px #1f51ff, 0 0 5px #1f51ff, 0 0 20px #1f51ff,
+  box-shadow:
+    0 0 5px #1f51ff,
+    0 0 5px #1f51ff,
+    0 0 20px #1f51ff,
     0 0 150px #1f51ff;
 }
 
@@ -301,7 +307,10 @@ label {
 .creator--form--content textarea:focus {
   outline: none;
   border: 1px solid #1f51ff;
-  box-shadow: 0 0 5px #1f51ff, 0 0 5px #1f51ff, 0 0 20px #1f51ff,
+  box-shadow:
+    0 0 5px #1f51ff,
+    0 0 5px #1f51ff,
+    0 0 20px #1f51ff,
     0 0 150px #1f51ff;
 }
 
@@ -381,7 +390,10 @@ label {
 }
 
 .creator--form--button:hover {
-  box-shadow: 0 0 5px #1f51ff, 0 0 20px #1f51ff, 0 0 60px #1f51ff,
+  box-shadow:
+    0 0 5px #1f51ff,
+    0 0 20px #1f51ff,
+    0 0 60px #1f51ff,
     0 0 150px #1f51ff;
   cursor: pointer;
   -o-transform: scale(1.05);
@@ -401,6 +413,7 @@ label {
   background-color: #101312;
   color: white;
   border: 1px solid #f53117;
+  text-decoration: none;
   -o-transition: transform 0.4s ease-in-out;
   -webkit-transition: transform 0.4s ease-in-out;
   -moz-transition: transform 0.4s ease-in-out;
@@ -409,7 +422,10 @@ label {
 }
 
 .creator--form--button--secondary:hover {
-  box-shadow: 0 0 5px #f53117, 0 0 20px #f53117, 0 0 60px #f53117,
+  box-shadow:
+    0 0 5px #f53117,
+    0 0 20px #f53117,
+    0 0 60px #f53117,
     0 0 150px #f53117;
   cursor: pointer;
   -o-transform: scale(1.05);
@@ -464,7 +480,10 @@ label {
 
 .fa-circle-xmark:hover {
   color: #f53117;
-  box-shadow: 0 0 5px #f53117, 0 0 20px #f53117, 0 0 60px #f53117,
+  box-shadow:
+    0 0 5px #f53117,
+    0 0 20px #f53117,
+    0 0 60px #f53117,
     0 0 150px #f53117;
   cursor: pointer;
 }
@@ -580,6 +599,7 @@ label {
   background-color: #101312;
   color: white;
   border: 1px solid #1f51ff;
+  text-decoration: none;
   -o-transition: transform 0.4s ease-in-out;
   -webkit-transition: transform 0.4s ease-in-out;
   -moz-transition: transform 0.4s ease-in-out;
@@ -588,7 +608,10 @@ label {
 }
 
 .creator--action--button--primary:hover {
-  box-shadow: 0 0 5px #1f51ff, 0 0 20px #1f51ff, 0 0 60px #1f51ff,
+  box-shadow:
+    0 0 5px #1f51ff,
+    0 0 20px #1f51ff,
+    0 0 60px #1f51ff,
     0 0 150px #1f51ff;
   cursor: pointer;
   -o-transform: scale(1.05);
@@ -616,7 +639,10 @@ label {
 }
 
 .creator--action--button--secondary:hover {
-  box-shadow: 0 0 5px #f53117, 0 0 20px #f53117, 0 0 60px #f53117,
+  box-shadow:
+    0 0 5px #f53117,
+    0 0 20px #f53117,
+    0 0 60px #f53117,
     0 0 150px #f53117;
   cursor: pointer;
   -o-transform: scale(1.05);
@@ -710,7 +736,10 @@ label {
 }
 
 .warning--button--primary:hover {
-  box-shadow: 0 0 5px #1f51ff, 0 0 20px #1f51ff, 0 0 60px #1f51ff,
+  box-shadow:
+    0 0 5px #1f51ff,
+    0 0 20px #1f51ff,
+    0 0 60px #1f51ff,
     0 0 150px #1f51ff;
   cursor: pointer;
   -o-transform: scale(1.05);
@@ -739,7 +768,10 @@ label {
 }
 
 .warning--button--secondary:hover {
-  box-shadow: 0 0 5px #f53117, 0 0 20px #f53117, 0 0 60px #f53117,
+  box-shadow:
+    0 0 5px #f53117,
+    0 0 20px #f53117,
+    0 0 60px #f53117,
     0 0 150px #f53117;
   cursor: pointer;
   -o-transform: scale(1.05);

@@ -2,6 +2,7 @@ import { useState, createContext, useEffect, useRef } from "react";
 import { supabase } from "../client";
 import { toast } from "react-toastify";
 import "../App.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CreatorContext = createContext({
   creators: [],
@@ -19,9 +20,14 @@ const CreatorContext = createContext({
   scrollToCreators: () => {},
   message: "",
   setMessage: () => {},
+  navigate: () => {},
 });
 
 const CreatorProvider = ({ children }) => {
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
   const [creators, setCreators] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +39,13 @@ const CreatorProvider = ({ children }) => {
   const [modal, setModal] = useState({
     type: null,
   });
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCreator(null);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const fetchCreators = async () => {
@@ -115,6 +128,7 @@ const CreatorProvider = ({ children }) => {
     scrollToCreators,
     message,
     setMessage,
+    navigate,
   };
 
   return (

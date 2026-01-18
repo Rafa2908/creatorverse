@@ -1,18 +1,40 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CreatorContext } from "../context/CreatorContext";
-import EditCreator from "./EditCreator";
 import DeleteCreator from "./DeleteCreator";
+import { Link, useParams } from "react-router-dom";
+import { supabase } from "../client";
 
 const ViewCreator = () => {
   const createContext = useContext(CreatorContext);
 
-  const { creator, modal, openEdit, closeModal } = createContext;
+  const { creator, setCreator } = createContext;
+
+  const creatorID = useParams();
+
+  useEffect(() => {
+    const fetchCreator = async () => {
+      const { data, error } = await supabase
+        .from("creators")
+        .select("*")
+        .eq("id", creatorID.id)
+        .single();
+
+      if (error) console.log(error);
+
+      try {
+        setCreator(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCreator();
+  }, [setCreator, creatorID.id]);
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
     <>
-      {modal.type == "edit" && <EditCreator />}
       {isDeleteOpen && (
         <DeleteCreator
           setIsDeleteOpen={setIsDeleteOpen}
@@ -22,7 +44,9 @@ const ViewCreator = () => {
       <div className="creator--main--container">
         <div className="creator--body--overlay">
           <span>
-            <i className="fa-regular fa-circle-xmark" onClick={closeModal}></i>
+            <Link to={"/"}>
+              <i className="fa-regular fa-circle-xmark"></i>
+            </Link>
           </span>
           <div className="creator--body--container">
             <div className="creator--body--image">
@@ -50,12 +74,12 @@ const ViewCreator = () => {
             </div>
           </div>
           <div className="creator--action--buttons">
-            <button
+            <Link
               className="creator--action--button--primary"
-              onClick={() => openEdit(creator.id)}
+              to={`/${creator?.id}/${creator?.name.replaceAll(" ", "")}/edit`}
             >
               Edit
-            </button>
+            </Link>
             <button
               className="creator--action--button--secondary"
               onClick={() => setIsDeleteOpen(!isDeleteOpen)}

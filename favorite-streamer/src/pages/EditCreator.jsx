@@ -1,20 +1,44 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CreatorContext } from "../context/CreatorContext";
 import { supabase } from "../client";
+import { Link, useParams } from "react-router-dom";
 
 const EditCreator = () => {
   const creatorContext = useContext(CreatorContext);
 
-  const { creator, setCreators, setModal, closeModal, setMessage } =
+  const { creator, setCreator, setCreators, setMessage, navigate } =
     creatorContext;
 
+  const creatorID = useParams();
+
   const [creatorData, setCreatorData] = useState({
-    id: creator.id,
-    name: creator.name,
-    imageUrl: creator.imageUrl,
-    description: creator.description,
-    socials: creator.socials,
+    id: creator?.id,
+    name: creator?.name,
+    imageUrl: creator?.imageUrl,
+    description: creator?.description,
+    socials: creator?.socials,
   });
+
+  useEffect(() => {
+    const fetchCreator = async () => {
+      const { data, error } = await supabase
+        .from("creators")
+        .select("*")
+        .eq("id", creatorID.id)
+        .single();
+
+      if (error) console.log(error);
+
+      try {
+        setCreator(data);
+        setCreatorData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCreator();
+  }, [setCreator, creatorID.id]);
 
   const updateData = (e) => {
     const { name, value } = e.target;
@@ -24,14 +48,14 @@ const EditCreator = () => {
   const updateSocials = (platform, value) => {
     setCreatorData((prev) => {
       const existing = prev.socials.find(
-        (social) => social.platform == platform
+        (social) => social.platform == platform,
       );
 
       if (existing) {
         return {
           ...prev,
           socials: prev.socials.map((social) =>
-            social.platform == platform ? { ...social, url: value } : social
+            social.platform == platform ? { ...social, url: value } : social,
           ),
         };
       }
@@ -57,14 +81,13 @@ const EditCreator = () => {
       setMessage("Creator data updated.");
       setCreators((prev) =>
         prev.map((creator) =>
-          creator.id == creatorId ? { ...creator, ...data } : creator
-        )
+          creator.id == creatorId ? { ...creator, ...data } : creator,
+        ),
       );
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
-
-    setModal({ type: null });
   };
 
   return (
@@ -126,8 +149,8 @@ const EditCreator = () => {
               placeholder="Youtube account..."
               onChange={(e) => updateSocials("youtube", e.target.value)}
               value={
-                creatorData.socials.find(
-                  (social) => social.platform === "youtube"
+                creatorData?.socials?.find(
+                  (social) => social.platform === "youtube",
                 )?.url || ""
               }
             />
@@ -144,8 +167,8 @@ const EditCreator = () => {
               placeholder="Twitter account..."
               onChange={(e) => updateSocials("twitter", e.target.value)}
               value={
-                creatorData.socials.find(
-                  (social) => social.platform === "twitter"
+                creatorData?.socials?.find(
+                  (social) => social.platform === "twitter",
                 )?.url || ""
               }
             />
@@ -162,8 +185,8 @@ const EditCreator = () => {
               placeholder="Instagram account..."
               onChange={(e) => updateSocials("instagram", e.target.value)}
               value={
-                creatorData.socials.find(
-                  (social) => social.platform === "instagram"
+                creatorData?.socials?.find(
+                  (social) => social.platform === "instagram",
                 )?.url || ""
               }
             />
@@ -173,13 +196,13 @@ const EditCreator = () => {
           <button type="submit" className="creator--form--button">
             Edit Creator
           </button>
-          <button
+          <Link
+            to={"/"}
             type="button"
             className="creator--form--button--secondary"
-            onClick={closeModal}
           >
             Cancel
-          </button>
+          </Link>
         </div>
       </form>
     </div>

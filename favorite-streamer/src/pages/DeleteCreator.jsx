@@ -6,7 +6,7 @@ import { supabase } from "../client";
 const DeleteCreator = ({ isDeleteOpen, setIsDeleteOpen }) => {
   const creatorContext = useContext(CreatorContext);
 
-  const { creator, setCreators, setModal, setMessage } = creatorContext;
+  const { creator, setCreators, setMessage, navigate } = creatorContext;
 
   const deleteCreator = async (creatorId) => {
     const { error } = await supabase
@@ -19,10 +19,10 @@ const DeleteCreator = ({ isDeleteOpen, setIsDeleteOpen }) => {
     try {
       setMessage("Creator deleted.");
       setCreators((prev) => prev.filter((creator) => creator.id != creatorId));
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
-    setModal({ type: null });
   };
 
   return (

@@ -1,18 +1,15 @@
 import { useContext } from "react";
 import "../App.css";
-import ViewCreator from "./ViewCreator";
-import EditCreator from "./EditCreator";
 import { CreatorContext } from "../context/CreatorContext";
+import { Link } from "react-router-dom";
 
 const ShowCreators = () => {
   const creatorContext = useContext(CreatorContext);
 
-  const { creators, openProfile, openEdit, modal } = creatorContext;
+  const { creators } = creatorContext;
 
   return (
     <>
-      {modal.type == "profile" && <ViewCreator />}
-      {modal.type == "edit" && <EditCreator />}
       <div className="view--creators--container">
         {creators.map((creator) => {
           return (
@@ -25,14 +22,16 @@ const ShowCreators = () => {
               <section className="view--creator--card--title">
                 <h2>{creator.name}</h2>
                 <article className="view--creator--icons">
-                  <i
-                    className="fa-solid fa-circle-info"
-                    onClick={() => openProfile(creator.id)}
-                  ></i>
-                  <i
-                    className="fa-solid fa-pencil"
-                    onClick={() => openEdit(creator.id)}
-                  ></i>
+                  <Link
+                    to={`/${creator.id}/${creator.name.replaceAll(" ", "")}`}
+                  >
+                    <i className="fa-solid fa-circle-info"></i>
+                  </Link>
+                  <Link
+                    to={`/${creator.id}/${creator.name.replaceAll(" ", "")}/edit`}
+                  >
+                    <i className="fa-solid fa-pencil"></i>
+                  </Link>
                 </article>
               </section>
               <div className="view--creators--socials">
